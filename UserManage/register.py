@@ -5,7 +5,7 @@ from Database.models import UserDetail, FriendsList
 import json
 
 
-@app.route("/id_check", methods=['POST'])
+@app.route("/users/idCheck", methods=['POST'])
 def id_check():
     session = db_session()
     return_msg = {'result': '0000'}
@@ -31,7 +31,7 @@ def id_check():
     return json_string
 
 
-@app.route("/register", methods=['POST'])
+@app.route("/users/register", methods=['POST'])
 def register():
     session = db_session()
     return_msg = {'result': '0000'}

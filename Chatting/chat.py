@@ -5,7 +5,7 @@ from Database.models import UserDetail, ChatRoom, ChatRoomDetail
 import json
 
 
-@app.route("/chattings/list", methods=['POST'])
+@app.route("/chattings/getList", methods=['POST'])
 def chat_list():
     session = db_session()
     return_msg = {'result': '0000', 'chat_list': []}

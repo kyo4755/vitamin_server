@@ -71,3 +71,42 @@ class ChatRoomDetail(Base):
         self.id = id
         self.date = date
         self.msg = msg
+
+
+class SNSDetail(Base):
+    __tablename__ = 'sns_detail'
+    index = Column(Integer, primary_key=True, autoincrement=True)
+    id = Column(String(20))
+    date = Column(DateTime)
+    content_text = Column(Text)
+    content_img = Column(String(20))
+
+    def __init__(self, id,  date, content_text, content_img):
+        self.id = id
+        self.date = date
+        self.content_text = content_text
+        self.content_img = content_img
+
+
+class SNSImage(Base):
+    __tablename__ = 'sns_image'
+    index = Column(String(20), primary_key=True)
+    image = Column(BLOB)
+
+    def __init__(self, index,  image):
+        self.index = index
+        self.image = image
+
+
+class SNSComment(Base):
+    __tablename__ = 'sns_comment'
+    index = Column(Integer)
+    id = Column(String(20))
+    date = Column(DateTime)
+    comment = Column(Text)
+
+    def __init__(self, index, id,  date, comment):
+        self.index = index
+        self.id = id
+        self.date = date
+        self.comment = comment

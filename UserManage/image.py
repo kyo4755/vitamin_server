@@ -1,11 +1,11 @@
 from Network import app
 from flask import request
 from Database.database import db_session
-from Database.models import UserDetail, UserImage
+from Database.models import UserDetail, UserImage, SNSImage
 import json
 
 
-@app.route("/change_photo", methods=['POST'])
+@app.route("/users/changePhoto", methods=['POST'])
 def change_photo():
     session = db_session()
     return_msg = {'result': '0000', 'image': ''}
@@ -56,16 +56,31 @@ def change_photo():
     return json_string
 
 
-@app.route("/user_photo", methods=['GET'])
+@app.route("/users/getPhoto", methods=['GET'])
 def user_photo():
     session = db_session()
     id = request.args.get('id')
     if id is None or id == 'null':
         return 'fail'
-        
-    query = session.query(UserImage.image).filter(UserImage.id == id).first()
+
+    query = session.query(UserImage.image)\
+        .filter(UserImage.id == id).first()
     img = query[0]
 
     session.close()
     return img
 
+
+@app.route("/sns/getPhoto", methods=['GET'])
+def user_photo():
+    session = db_session()
+    id = request.args.get('id')
+    if id is None or id == 'null':
+        return 'fail'
+
+    query = session.query(SNSImage.image)\
+        .filter(SNSImage.index == id).first()
+    img = query[0]
+
+    session.close()
+    return img

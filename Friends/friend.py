@@ -6,7 +6,7 @@ from Database.models import FriendsList, UserDetail
 import json
 
 
-@app.route('/friend_number', methods=['POST'])
+@app.route('/friends/getNumber', methods=['POST'])
 def friend_number():
     session = db_session()
     return_msg = {'result': '0000', 'f_number' : ''}
@@ -35,7 +35,7 @@ def friend_number():
     return json_string
         
 
-@app.route('/add_friend', methods=['POST'])
+@app.route('/friends/add', methods=['POST'])
 def add_friend():
     session = db_session()
     return_msg = {'result': '0000'}
@@ -75,7 +75,7 @@ def add_friend():
     return json_string
 
 
-@app.route('/friends_list', methods=['POST'])
+@app.route('/friends/getList', methods=['POST'])
 def friend_list():
     session = db_session()
     return_msg = {'result': '0000', 'friends_list': []}
@@ -120,7 +120,7 @@ def friend_list():
     return json_string
 
 
-@app.route('/find_friend', methods=['POST'])
+@app.route('/friends/find', methods=['POST'])
 def find_friend():
     session = db_session()
     return_msg = {'result': '0000', 'detail_info': {}}
@@ -153,7 +153,7 @@ def find_friend():
     return json_string
 
 
-@app.route("/users/get_info", methods=['POST'])
+@app.route("/users/getInfo", methods=['POST'])
 def users_get_info():
     session = db_session()
     return_msg = {'result': '0000'}

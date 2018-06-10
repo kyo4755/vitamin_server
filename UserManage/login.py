@@ -5,7 +5,7 @@ from Database.models import UserDetail, FriendsList
 import json
 
 
-@app.route("/login", methods=['POST'])
+@app.route("/users/login", methods=['POST'])
 def login():
     session = db_session()
     return_msg = {'result': '0000', 'friends_list': [], "my_profile": {}}
