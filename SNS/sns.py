@@ -113,7 +113,7 @@ def sns_insert_content():
 
 
 @app.route("/sns/insertComment", methods=['POST'])
-def sns_get_list():
+def sns_insert_comment():
     session = db_session()
     return_msg = {'result': '0000'}
 
@@ -156,7 +156,7 @@ def sns_get_list():
 
 
 @app.route("/sns/getCommentList", methods=['POST'])
-def sns_get_list():
+def sns_get_comment_list():
     session = db_session()
     return_msg = {'result': '0000', 'sns_comment_list': []}
 
@@ -199,7 +199,7 @@ def sns_get_list():
 
 
 @app.route("/sns/getFriendList", methods=['POST'])
-def sns_get_list():
+def sns_get_friend_list():
     session = db_session()
     return_msg = {'result': '0000', 'sns_list': []}
 

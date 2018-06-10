@@ -11,5 +11,6 @@ if __name__ == '__main__':
     from UserManage import image, login, register
     from Chatting import chat
     from Friends import friend
+    from SNS import sns
     init_db()
     app.run(host='0.0.0.0', debug=True)

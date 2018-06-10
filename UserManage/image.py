@@ -72,7 +72,7 @@ def user_photo():
 
 
 @app.route("/sns/getPhoto", methods=['GET'])
-def user_photo():
+def sns_photo():
     session = db_session()
     id = request.args.get('id')
     if id is None or id == 'null':

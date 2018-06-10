@@ -100,6 +100,7 @@ class SNSImage(Base):
 
 class SNSComment(Base):
     __tablename__ = 'sns_comment'
+    auin = Column(Integer, primary_key=True, autoincrement=True)
     index = Column(Integer)
     id = Column(String(20))
     date = Column(DateTime)
