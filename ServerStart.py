@@ -1,16 +1,13 @@
-import json
+from flask import Flask
+from Database.database import init_db
 
-from flask import request
-from Database.database import init_db, db_session
-from Database.models import UserDetail
+app = Flask(__name__)
 
-session = db_session()
+from UserManage import image, login, register, token
+from Chatting import chat
+from Friends import friend
+from SNS import sns
 
 if __name__ == '__main__':
-    from Network import app
-    from UserManage import image, login, register
-    from Chatting import chat
-    from Friends import friend
-    from SNS import sns
     init_db()
     app.run(host='0.0.0.0', debug=True)

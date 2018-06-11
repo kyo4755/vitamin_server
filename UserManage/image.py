@@ -1,4 +1,4 @@
-from Network import app
+from ServerStart import app
 from flask import request
 from Database.database import db_session
 from Database.models import UserDetail, UserImage, SNSImage

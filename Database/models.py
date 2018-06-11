@@ -14,6 +14,7 @@ class UserDetail(Base):
     prefer_language = Column(String(100))
     status_msg = Column(String(100))
     image = Column(String(20))
+    token = Column(String(100))
 
     def __init__(self, id, passwd, phone_number, name, email, nation, location, prefer_language):
         self.id = id

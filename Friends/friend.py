@@ -1,4 +1,4 @@
-from Network import app
+from ServerStart import app
 from flask import request
 from Database.database import db_session
 from Database.models import FriendsList, UserDetail
@@ -9,31 +9,31 @@ import json
 @app.route('/friends/getNumber', methods=['POST'])
 def friend_number():
     session = db_session()
-    return_msg = {'result': '0000', 'f_number' : ''}
+    return_msg = {'result': '0000', 'f_number': ''}
     if request.method == 'POST':
         id = request.form['id']
-        
+
         if id is None or len(id) == 0:
             return_msg['result'] = '0001'
             json_string = json.dumps(return_msg)
             return json_string
-            
-        query = session.query(FriendsList)\
+
+        query = session.query(FriendsList) \
             .filter(FriendsList.id == id).first()
 
         if query.friendId is None:
             num = 0
         else:
             num = len(query.friendId.split(','))
-        
+
         return_msg['f_number'] = num
     else:
         return_msg['result'] = '0100'
-        
+
     session.close()
     json_string = json.dumps(return_msg)
     return json_string
-        
+
 
 @app.route('/friends/add', methods=['POST'])
 def add_friend():
@@ -53,7 +53,7 @@ def add_friend():
             json_string = json.dumps(return_msg)
             return json_string
 
-        query = session.query(FriendsList)\
+        query = session.query(FriendsList) \
             .filter(FriendsList.id == myid).all()
 
         if query is None:
@@ -102,6 +102,7 @@ def friend_list():
             for detail in detail_query:
                 detail_dict = {'id': detail.id,
                                'name': detail.name,
+                               'phone_number': detail.phone_number,
                                'email': detail.email,
                                'nation': detail.nation,
                                'location': detail.location,
@@ -133,7 +134,7 @@ def find_friend():
             json_string = json.dumps(return_msg)
             return json_string
 
-        query = session.query(UserDetail)\
+        query = session.query(UserDetail) \
             .filter(UserDetail.id == anid).all()
 
         if query is None:
@@ -166,7 +167,7 @@ def users_get_info():
             json_string = json.dumps(return_msg)
             return json_string
 
-        query = session.query(UserDetail)\
+        query = session.query(UserDetail) \
             .filter(UserDetail.id == id).first()
 
         if query is None:

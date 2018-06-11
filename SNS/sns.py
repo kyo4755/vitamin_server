@@ -1,4 +1,4 @@
-from Network import app
+from ServerStart import app
 from flask import request
 from Database.database import db_session
 from Database.models import SNSDetail, SNSImage, SNSComment, UserDetail
@@ -198,7 +198,7 @@ def sns_get_comment_list():
     return json_string
 
 
-@app.route("/sns/getFriendList", methods=['POST'])
+@app.route("/sns/getFriendSNSList", methods=['POST'])
 def sns_get_friend_list():
     session = db_session()
     return_msg = {'result': '0000', 'sns_list': []}
