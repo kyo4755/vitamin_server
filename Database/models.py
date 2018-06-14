@@ -14,7 +14,7 @@ class UserDetail(Base):
     prefer_language = Column(String(100))
     status_msg = Column(String(100))
     image = Column(String(20))
-    token = Column(String(100))
+    token = Column(String(500))
 
     def __init__(self, id, passwd, phone_number, name, email, nation, location, prefer_language):
         self.id = id
@@ -52,12 +52,12 @@ class ChatRoom(Base):
     id = Column(String(20))
     room_num = Column(Integer)
     member = Column(String(1000))
-    
+
     def __init__(self, id, room_num, member):
         self.id = id
         self.room_num = room_num
         self.member = member
-        
+
 
 class ChatRoomDetail(Base):
     __tablename__ = 'chat_room_detail'
@@ -66,7 +66,7 @@ class ChatRoomDetail(Base):
     id = Column(String(20))
     date = Column(DateTime)
     msg = Column(Text)
-    
+
     def __init__(self, room_num, id, date, msg):
         self.room_num = room_num
         self.id = id
@@ -82,7 +82,7 @@ class SNSDetail(Base):
     content_text = Column(Text)
     content_img = Column(String(20))
 
-    def __init__(self, id,  date, content_text, content_img):
+    def __init__(self, id, date, content_text, content_img):
         self.id = id
         self.date = date
         self.content_text = content_text
@@ -94,7 +94,7 @@ class SNSImage(Base):
     index = Column(String(20), primary_key=True)
     image = Column(BLOB)
 
-    def __init__(self, index,  image):
+    def __init__(self, index, image):
         self.index = index
         self.image = image
 
@@ -107,7 +107,7 @@ class SNSComment(Base):
     date = Column(DateTime)
     comment = Column(Text)
 
-    def __init__(self, index, id,  date, comment):
+    def __init__(self, index, id, date, comment):
         self.index = index
         self.id = id
         self.date = date

@@ -84,10 +84,11 @@ def register():
 
             f = FriendsList(id)
             session.add(f)
+
+            session.commit()
     else:
         return_msg['result'] = '0100'
 
-    session.commit()
     session.close()
     json_string = json.dumps(return_msg)
     return json_string

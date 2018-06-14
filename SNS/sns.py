@@ -33,10 +33,10 @@ def sns_get_list():
             return_msg['result'] = '0003'
         else:
             for detail in query:
-                query_user = session.query(UserDetail)\
+                query_user = session.query(UserDetail) \
                     .filter(UserDetail.id == detail.id).first()
 
-                query_count = session.query(SNSComment)\
+                query_count = session.query(SNSComment) \
                     .filter(SNSComment.index == detail.index).count()
 
                 if query_user is None:
@@ -47,9 +47,9 @@ def sns_get_list():
                                 'name': query_user.name,
                                 'user_image': query_user.image,
                                 'prefer_language': query_user.prefer_language,
-                                'date': detail.date,
+                                'date': str(detail.date),
                                 'content_text': detail.content_text,
-                                'content_image': detail.content_image,
+                                'content_image': detail.content_img,
                                 'comment_count': query_count
                                 }
                     return_msg['sns_list'].append(sns_dict)
@@ -89,7 +89,7 @@ def sns_insert_content():
 
         str_img = "none"
         if content_image is not None:
-            query = session.query(SNSImage.index)\
+            query = session.query(SNSImage.index) \
                 .order_by(SNSImage.index.desc()).first()
 
             if query is None:
@@ -168,14 +168,14 @@ def sns_get_comment_list():
             json_string = json.dumps(return_msg)
             return json_string
 
-        query = session.query(SNSComment)\
+        query = session.query(SNSComment) \
             .filter(SNSComment.index == index).all()
 
         if query is None:
             return_msg['result'] = '0010'
 
         for detail in query:
-            query_user = session.query(UserDetail)\
+            query_user = session.query(UserDetail) \
                 .filter(UserDetail.id == detail.id).first()
 
             if query_user is None:
@@ -184,7 +184,7 @@ def sns_get_comment_list():
                 comment_dict = {'id': detail.id,
                                 'name': query_user.name,
                                 'user_image': query_user.image,
-                                'date': detail.date,
+                                'date': str(detail.date),
                                 'comment': detail.comment,
                                 }
 
@@ -211,14 +211,14 @@ def sns_get_friend_list():
             json_string = json.dumps(return_msg)
             return json_string
 
-        query = session.query(SNSDetail)\
+        query = session.query(SNSDetail) \
             .filter(SNSDetail.id == id).order_by(SNSDetail.date).all()
 
         if query is None:
             return_msg['result'] = '0010'
         else:
             for detail in query:
-                query_count = session.query(SNSComment)\
+                query_count = session.query(SNSComment) \
                     .filter(SNSComment.index == detail.index).count()
 
                 sns_dict = {'index': detail.index,
@@ -229,7 +229,7 @@ def sns_get_friend_list():
 
                 return_msg['sns_list'].append(sns_dict)
 
-        query_user = session.query(UserDetail)\
+        query_user = session.query(UserDetail) \
             .filter(UserDetail.id == id).first()
 
         if query_user is None:

@@ -8,9 +8,9 @@ import requests
 fcm_url = 'https://fcm.googleapis.com/fcm/send'
 server_key = 'AAAAyvS5iT4:APA91bHy4GIF82ZDMNisnD2qb92aJpehF6j3xHIhDjHOE4uWjUdnfT0bfa0jbIuRKzMLRAL-82BISkMqcR99tG8RlyunZs6aGvhBb3Utr0qbJiYSQLQRon7GsXjXK3Iz0YkIcLei7aRy'
 headers = {
-            'Authorization': 'key= ' + server_key,
-            'Content-Type': 'application/json',
-        }
+    'Authorization': 'key= ' + server_key,
+    'Content-Type': 'application/json',
+}
 
 
 @app.route("/chattings/getList", methods=['POST'])
@@ -102,20 +102,28 @@ def chat_send():
         t = ChatRoomDetail(room_num, id, date, msg)
         session.add(t)
 
-        query_friend = session.query(ChatRoom.member)\
+        query_friend = session.query(ChatRoom.member) \
             .filter(ChatRoom.room_num == room_num).first()
 
         split_friend = query_friend[0].split(',')
 
+        query_send_friend = session.query(UserDetail) \
+            .filter(UserDetail.id == id).first()
+
         for friend in split_friend:
-            query_user = session.query(UserDetail)\
-                .filter(UserDetail.id == friend).first()
+            if friend == id:
+                continue
 
             message_body = {'id': id,
                             'date': date,
                             'msg': msg,
-                            'name': query_user.name,
-                            'image': query_user.image}
+                            'name': query_send_friend.name,
+                            'image': query_send_friend.image}
+
+            print(message_body)
+
+            query_user = session.query(UserDetail) \
+                .filter(UserDetail.id == friend).first()
 
             data = {
                 'to': query_user.token,
@@ -125,7 +133,6 @@ def chat_send():
             }
 
             response = requests.post(fcm_url, headers=headers, data=json.dumps(data))
-            print(response)
 
     else:
         return_msg['result'] = '0100'
@@ -199,7 +206,7 @@ def chat_load():
             return json_string
 
         query = session.query(ChatRoomDetail) \
-            .filter(ChatRoomDetail.room_num == room_num).all()
+            .filter(ChatRoomDetail.room_num == room_num).order_by(ChatRoomDetail.date).all()
 
         for detail in query:
             query_user = session.query(UserDetail).filter(UserDetail.id == detail.id).first()
