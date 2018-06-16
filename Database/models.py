@@ -112,3 +112,17 @@ class SNSComment(Base):
         self.id = id
         self.date = date
         self.comment = comment
+
+
+class Translate(Base):
+    __tablename__ = 'translate'
+    index = Column(Integer, primary_key=True, autoincrement=True)
+    id = Column(String(20))
+    before_msg = Column(Text)
+    after_msg = Column(Text)
+
+    def __init__(self, index, id, before_msg, after_msg):
+        self.index = index
+        self.id = id
+        self.before_msg = before_msg
+        self.after_msg = after_msg

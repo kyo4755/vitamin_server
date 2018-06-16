@@ -4,7 +4,7 @@ from Database.database import init_db
 app = Flask(__name__)
 
 from UserManage import image, login, register, token
-from Chatting import chat
+from Chatting import chat, translate
 from Friends import friend
 from SNS import sns
 
