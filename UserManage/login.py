@@ -8,7 +8,7 @@ import json
 @app.route("/users/login", methods=['POST'])
 def login():
     session = db_session()
-    return_msg = {'result': '0000', 'friends_list': [], "my_profile": {}}
+    return_msg = {'result': '0000', "my_profile": {}}
 
     if request.method == 'POST':
         id = request.form['id']
@@ -43,6 +43,8 @@ def login():
             return_msg['my_profile'] = my_profile
     else:
         return_msg['result'] = '0100'
+
+    # print(str(return_msg))
 
     session.close()
     json_string = json.dumps(return_msg)

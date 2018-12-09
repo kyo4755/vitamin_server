@@ -14,8 +14,6 @@ def set_token():
         id = request.form['id']
         token = request.form['token']
 
-        print(token)
-
         if id is None or len(id) == 0:
             return_msg['result'] = '0001'
             json_string = json.dumps(return_msg)

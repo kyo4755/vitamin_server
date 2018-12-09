@@ -54,17 +54,16 @@ def add_friend():
             return json_string
 
         query = session.query(FriendsList) \
-            .filter(FriendsList.id == myid).all()
+            .filter(FriendsList.id == myid).first()
 
         if query is None:
             return_msg['result'] = '0003'
         else:
-            for friend in query:
-                if friend.friendId is None:
-                    tmp_str = anid
-                else:
-                    tmp_str = friend.friendId + ',' + anid
-                friend.friendId = tmp_str
+            if query.friendId is None:
+                tmp_str = anid
+            else:
+                tmp_str = query.friendId + ',' + anid
+            query.friendId = tmp_str
 
         session.commit()
     else:

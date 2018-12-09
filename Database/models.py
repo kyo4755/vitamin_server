@@ -30,7 +30,7 @@ class UserDetail(Base):
 class UserImage(Base):
     __tablename__ = 'user_image'
     id = Column(String(20), primary_key=True)
-    image = Column(BLOB)
+    image = Column(String(100))
 
     def __init__(self, id, image):
         self.id = id
@@ -126,3 +126,22 @@ class Translate(Base):
         self.id = id
         self.before_msg = before_msg
         self.after_msg = after_msg
+
+
+class Quiz(Base):
+    __tablename__ = 'quiz'
+    index = Column(Integer, primary_key=True, autoincrement=True)
+    question = Column(Text)
+    numOne = Column(Text)
+    numTwo = Column(Text)
+    numThree = Column(Text)
+    numFour = Column(Text)
+    answer = Column(String(20))
+
+    def __init__(self, question, numOne, numTwo, numThree, numFour):
+        self.question = question
+        self.numOne = numOne
+        self.numTwo = numTwo
+        self.numThree = numThree
+        self.numFour = numFour
+        self.answer = answer

@@ -24,6 +24,11 @@ def change_photo():
             json_string = json.dumps(return_msg)
             return json_string
 
+        filename = "Image/" + id
+        f = open(filename, "wb")
+        f.write(image)
+        f.close()
+
         query = session.query(UserDetail) \
             .filter(UserDetail.id == id).all()
 
@@ -35,15 +40,11 @@ def change_photo():
                 else:
                     query_img_id = query_id[0]
                     img_id = int(query_img_id) + 1
-                image_data = UserImage(str(img_id), image)
+                image_data = UserImage(str(img_id), filename)
                 session.add(image_data)
                 detail.image = str(img_id)
                 return_msg['image'] = str(img_id)
             else:
-                query_image = session.query(UserImage)\
-                    .filter(UserImage.id == detail.image).all()
-                for q_img in query_image:
-                    q_img.image = image
                 return_msg['image'] = detail.image
 
         session.commit()
@@ -63,12 +64,17 @@ def user_photo():
     if id is None or id == 'null':
         return 'fail'
 
-    query = session.query(UserImage.image)\
+    query = session.query(UserImage) \
         .filter(UserImage.id == id).first()
-    img = query[0]
+
+    img = query.image
+
+    f = open(img, "rb")
+    imgFile = f.read()
+    f.close()
 
     session.close()
-    return img
+    return imgFile
 
 
 @app.route("/sns/getPhoto", methods=['GET'])
@@ -78,7 +84,7 @@ def sns_photo():
     if id is None or id == 'null':
         return 'fail'
 
-    query = session.query(SNSImage.image)\
+    query = session.query(SNSImage.image) \
         .filter(SNSImage.index == id).first()
     img = query[0]
 
